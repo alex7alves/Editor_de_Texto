@@ -40,7 +40,7 @@
     </property>
     <addaction name="actionNovo"/>
     <addaction name="actionAbrir"/>
-    <addaction name="actionSalvat"/>
+    <addaction name="actionSalvar"/>
     <addaction name="actionSalvar_Como"/>
     <addaction name="actionSair"/>
    </widget>
@@ -72,7 +72,7 @@
     <string>Abrir</string>
    </property>
   </action>
-  <action name="actionSalvat">
+  <action name="actionSalvar">
    <property name="text">
     <string>Salvar</string>
    </property>

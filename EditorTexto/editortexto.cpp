@@ -30,13 +30,23 @@ void EditorTexto::on_actionSalvar_Como_triggered()
     }
 }
 
+// metodo Salvar
 void EditorTexto::SalvarArquivo()
 {
     QFile file(ArquivoAtual);
     if(file.open(QFile::WriteOnly)) {
-        //file.write(ui->plainTextEdit.toPlainText().toutf8());
         file.write(ui->textEdit->toPlainText().toUtf8());
     }else {
         QMessageBox::warning(this," EditorTexto ",tr("O arquivo não pode ser salvo %1.\nError: %2").arg(ArquivoAtual).arg(file.errorString()));
+    }
+}
+
+// Evento do Salvar do menu
+void EditorTexto::on_actionSalvar_triggered()
+{
+    if(ArquivoAtual.isEmpty()){
+        on_actionSalvar_Como_triggered();
+    }else {
+        SalvarArquivo();
     }
 }

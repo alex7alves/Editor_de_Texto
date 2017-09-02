@@ -17,6 +17,8 @@ public:
 
 private slots:
     void on_actionSalvar_Como_triggered();
+    void on_actionSalvar_triggered();
+
 private:
     Ui::EditorTexto *ui;
     void SalvarArquivo();
