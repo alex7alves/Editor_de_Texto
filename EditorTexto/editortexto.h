@@ -17,10 +17,10 @@ public:
 
 private slots:
     void on_actionSalvar_Como_triggered();
-    void SalvarArquivo();
-    QString ArquivoAtual;
 private:
     Ui::EditorTexto *ui;
+    void SalvarArquivo();
+    QString ArquivoAtual;
 };
 
 #endif // EDITORTEXTO_H
