@@ -17,27 +17,30 @@ EditorTexto::~EditorTexto()
 }
 
 // Evento do botão salvar como
-void EditorTexto::on_actionSalvar_Como_triggered()
+bool EditorTexto::on_actionSalvar_Como_triggered()
 {
     // Caixa de dialogo
     QString NomeArquivo = QFileDialog::getSaveFileName(this, "TextoEditor - Salvar Como ", "home/alex/Área de Trabalho/Pasta sem título/EditorTexto"," All Files (*.*);; Text Files (*.txt)");
     ArquivoAtual = NomeArquivo;
     if(NomeArquivo.isEmpty()){
 
-        SalvarArquivo();
+       return SalvarArquivo();
     }else {
-         SalvarArquivo();
+       return  SalvarArquivo();
     }
+    return false;
 }
 
 // metodo Salvar
-void EditorTexto::SalvarArquivo()
+bool EditorTexto::SalvarArquivo()
 {
     QFile file(ArquivoAtual);
     if(file.open(QFile::WriteOnly)) {
         file.write(ui->textEdit->toPlainText().toUtf8());
+        return true;
     }else {
         QMessageBox::warning(this," EditorTexto ",tr("O arquivo não pode ser salvo %1.\nError: %2").arg(ArquivoAtual).arg(file.errorString()));
+        return false;
     }
 }
 
@@ -52,11 +55,11 @@ bool EditorTexto::Modificado()
                     tr("O documento foi modificado, deseja salva-lo ?"),
                     QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
          if(ret == QMessageBox::Yes) {
-             on_actionSalvar_Como_triggered();
+             return on_actionSalvar_Como_triggered();
          }else if(ret == QMessageBox::Cancel){
-             return false;
-         }else {
              return true;
+         }else {
+             return false;
          }
     }
 }
@@ -65,19 +68,20 @@ bool EditorTexto::Modificado()
 
 
 // Evento do Salvar do menu
-void EditorTexto::on_actionSalvar_triggered()
+bool EditorTexto::on_actionSalvar_triggered()
 {
     if(ArquivoAtual.isEmpty()){
-        on_actionSalvar_Como_triggered();
+       return  on_actionSalvar_Como_triggered();
     }else {
-        SalvarArquivo();
+      return   SalvarArquivo();
     }
 }
 
 void EditorTexto::on_actionAbrir_triggered()
 {
-    if(Modificado()){
-        QString NomeArquivo = QFileDialog::getSaveFileName(this, "TextoEditor - Salvar ", "home/alex/Área de Trabalho/Pasta sem título/EditorTexto"," All Files (*.*);; Text Files (*.txt)");
+    if(!(Modificado())){
+      //  Modificado();
+        QString NomeArquivo = QFileDialog::getOpenFileName(this, "TextoEditor - Abrir ", "home/alex/Área de Trabalho/Pasta sem título/EditorTexto"," All Files (*.*);; Text Files (*.txt)");
 
         if(!(NomeArquivo.isEmpty())){
             QFile file(NomeArquivo);
@@ -87,6 +91,8 @@ void EditorTexto::on_actionAbrir_triggered()
                  QMessageBox::warning(this," EditorTexto ",tr("O arquivo não pode ser salvo %1.\nError: %2").arg(ArquivoAtual).arg(file.errorString()));
             }
         }
-     }
+    }else {
+        Modificado();
+    }
 
 }

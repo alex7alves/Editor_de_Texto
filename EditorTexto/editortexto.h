@@ -16,14 +16,14 @@ public:
     ~EditorTexto();
 
 private slots:
-    void on_actionSalvar_Como_triggered();
-    void on_actionSalvar_triggered();
+    bool on_actionSalvar_Como_triggered();
+    bool on_actionSalvar_triggered();
 
     void on_actionAbrir_triggered();
 
 private:
     Ui::EditorTexto *ui;
-    void SalvarArquivo();
+    bool SalvarArquivo();
     bool Modificado();
     QString ArquivoAtual;
 };
