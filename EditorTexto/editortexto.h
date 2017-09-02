@@ -15,6 +15,10 @@ public:
     explicit EditorTexto(QWidget *parent = 0);
     ~EditorTexto();
 
+private slots:
+    void on_actionSalvar_Como_triggered();
+    void SalvarArquivo();
+    QString ArquivoAtual;
 private:
     Ui::EditorTexto *ui;
 };
